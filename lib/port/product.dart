@@ -10,6 +10,5 @@ abstract class IProductRepository {
 
 abstract class IProductService {
   Future<List<ProductDisplay>> getByCategory(String category);
-
-  Future<List<String>> getCategories();
+  Future<List<String>> getCatagories();
 }

@@ -1,13 +1,12 @@
 
+import 'package:shop/di/get_it.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/network/http/http_service.dart';
 import 'package:shop/port/product.dart';
 
 class ProductRepository implements IProductRepository {
 
-  final HttpService httpService;
-
-  ProductRepository(this.httpService);
+  final HttpService httpService = getit.get<HttpService>();
 
   @override
   Future<List<Product>> getByCategory(String category) async {

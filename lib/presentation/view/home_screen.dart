@@ -1,22 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shop/di/get_it.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/mocks/products.dart';
-import 'package:shop/network/http/dio_service.dart';
 import 'package:shop/port/product.dart';
-import 'package:shop/presentation/elements/buttons/primary_button.dart';
-import 'package:shop/presentation/elements/texts/big_text.dart';
-import 'package:shop/presentation/elements/texts/price_text.dart';
-import 'package:shop/presentation/elements/texts/small_text.dart';
-import 'package:shop/presentation/elements/texts/text_title.dart';
-import 'package:shop/presentation/widget/card/product_card.dart';
 import 'package:shop/presentation/widget/home_appbar.dart';
 import 'package:shop/presentation/widget/home_jumbutton.dart';
-import 'package:shop/presentation/widget/list/product_list.dart';
 import 'package:shop/presentation/widget/section/catalog.dart';
-import 'package:shop/repositories/product_repository.dart';
-import 'package:shop/services/product_services.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,15 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    final http = DioService('https://fakestoreapi.com');
-    final repo = ProductRepository(http);
-    service = ProductService(repo);
+    service = getit.get<IProductService>();
     getProducts();
   }
 
   
   void getProducts() async {
-    final categories = await service.getCategories();
+    final categories = await service.getCatagories();
     final productsFetchers = categories.map((e) => service.getByCategory(e));
     final products = await Future.wait(productsFetchers);
 
