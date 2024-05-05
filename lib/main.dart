@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/di/get_it.dart';
-import 'package:shop/presentation/view/home_screen.dart';
+import 'package:shop/presentation/screen/home_screen.dart';
 
 void main() {
   registerServices();

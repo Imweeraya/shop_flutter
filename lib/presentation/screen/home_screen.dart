@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:shop/di/get_it.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/mocks/products.dart';
 import 'package:shop/port/product.dart';
-import 'package:shop/presentation/widget/home_appbar.dart';
-import 'package:shop/presentation/widget/home_jumbutton.dart';
+import 'package:shop/presentation/widget/appbar/home_appbar.dart';
+import 'package:shop/presentation/widget/jumbutton/home_jumbutton.dart';
 import 'package:shop/presentation/widget/section/catalog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<List<ProductDisplay>> products = [];
   List<String> categories = [];
 
+  bool isloading = false;
+
   // _HomePageState() {
   //   final http = DioService('https://fakestoreapi.com');
   //   final repo = ProductRepository(http);
@@ -33,11 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    isloading = true;
     service = getit.get<IProductService>();
     getProducts();
   }
 
-  
   void getProducts() async {
     final categories = await service.getCatagories();
     final productsFetchers = categories.map((e) => service.getByCategory(e));
@@ -46,8 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       this.categories = categories;
       this.products = products;
+      isloading = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,24 +61,44 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             const HomeAppBar(),
-            Expanded(
-                child: ListView.builder(
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        HomeJumButton(
-                            url: categoryImages[categories[index]]!,
-                            title: categories[index].toUpperCase(),
-                            buttonTitle: 'ViewCollection'
+            isloading
+                ? const Expanded(
+                  child: Center(
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Column(
+                          children: [
+                            LoadingIndicator(
+                              indicatorType: Indicator.pacman,
+                              colors: [Color.fromARGB(137, 24, 24, 24) , Color.fromARGB(255, 106, 106, 106), Color.fromARGB(255, 184, 184, 184)],
+                              strokeWidth: 4.0,
+                              pathBackgroundColor: Colors.white,
+                            ),
+                          ],
                         ),
-                        Catalog(title: 'All products',products: products[index]),
-                        const SizedBox(height: 24,)
-                      ],
-                    );
-                  },
+                      ),
+                    ),
                 )
-              ),
+                : Expanded(
+                    child: ListView.builder(
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          HomeJumButton(
+                              url: categoryImages[categories[index]]!,
+                              title: categories[index].toUpperCase(),
+                              buttonTitle: 'ViewCollection'),
+                          Catalog(
+                              title: 'All products', products: products[index]),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                        ],
+                      );
+                    },
+                  )),
             // Expanded(
             //   child: ListView(
             //     children: [
@@ -83,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //         title: "OUTERWEAR",
             //         buttonTitle: "View Collection",
             //       ),
-                  
+
             //       Catalog(products: products, title: "Most Popular Outerwear"),
             //       const HomeJumButton(
             //         url:
