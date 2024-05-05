@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:shop/di/get_it.dart';
 import 'package:shop/entities/product.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     service = getit.get<IProductService>();
     getProducts();
   }
+  
 
   void getProducts() async {
     final categories = await service.getCatagories();
@@ -55,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onSelectProduct(ProductDisplay product) {
+    context.go('/detail' , extra: product);
     print(product.name);
   }
 
@@ -70,11 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? const Expanded(
                     child: Center(child: Loading()),
                   )
-                : Expanded(
+                : 
+                Expanded(
                     child: ListView.builder(
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return Column(
+                        key: UniqueKey(),
                         children: [
                           HomeJumButton(
                               url: categoryImages[categories[index]]!,

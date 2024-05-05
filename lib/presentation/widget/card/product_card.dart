@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/presentation/elements/texts/price_text.dart';
 import 'package:shop/presentation/elements/texts/small_text.dart';
@@ -17,25 +18,39 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(onTap != null){
+        if (onTap != null) {
           onTap!(product);
         }
       },
-      child: SizedBox(
+      child: Container(
+        decoration: BoxDecoration(
+         
+          borderRadius:
+              BorderRadius.circular(10.0), // Adjust the radius as needed
+        ),
         width: width,
         height: height,
         child: Stack(
           children: [
-            Image.network(
-              product.imageUrl,
-              width: width,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                product.imageUrl,
+                width: width,
+                fit: BoxFit.cover,
+              ),
             ),
             Column(
               children: [
                 const Spacer(),
                 Container(
-                  color: Color(0x80000000),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                      ),
+                      color: Colors.black.withOpacity(0.7)),
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Row(

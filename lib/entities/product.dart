@@ -8,6 +8,8 @@ class ProductDisplay {
   String? description;
   String imageUrl;
   double price;
+  double? rating;
+  int? count;
 
   ProductDisplay(
       {required this.id,
@@ -15,5 +17,8 @@ class ProductDisplay {
       required this.name,
       this.description,
       required this.imageUrl,
-      required this.price});
+      required this.price,
+      this.rating,
+      this.count
+      });
 }
