@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shop/entities/product.dart';
 import 'package:shop/presentation/widget/card/product_card.dart';
 
+typedef OnSelectProduct = Function(ProductDisplay product);
+
 class ProductList extends StatelessWidget {
-  const ProductList({super.key , required this.products});
+  const ProductList({super.key , required this.products , this.onselect});
+
   final List<ProductDisplay> products;
+  final OnSelectProduct? onselect;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class ProductList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context , index){
-          return ProductCard(product: products[index]);
+          return ProductCard(product: products[index] , onTap: onselect,);
       }),
     );
   }

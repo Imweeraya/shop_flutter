@@ -54,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onSelectProduct(ProductDisplay product) {
+    print(product.name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,10 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const HomeAppBar(),
             isloading
                 ? const Expanded(
-                  child: Center(
-                      child: Loading()
-                    ),
-                )
+                    child: Center(child: Loading()),
+                  )
                 : Expanded(
                     child: ListView.builder(
                     itemCount: categories.length,
@@ -79,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               title: categories[index].toUpperCase(),
                               buttonTitle: 'ViewCollection'),
                           Catalog(
-                              title: 'All products', products: products[index]),
+                              title: 'All products', products: products[index] , onSelectProduct: onSelectProduct,),
                           const SizedBox(
                             height: 24,
                           ),
