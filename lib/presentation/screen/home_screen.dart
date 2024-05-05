@@ -8,6 +8,7 @@ import 'package:shop/mocks/products.dart';
 import 'package:shop/port/product.dart';
 import 'package:shop/presentation/widget/appbar/home_appbar.dart';
 import 'package:shop/presentation/widget/jumbutton/home_jumbutton.dart';
+import 'package:shop/presentation/widget/loading_indicator/loading.dart';
 import 'package:shop/presentation/widget/section/catalog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -64,20 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isloading
                 ? const Expanded(
                   child: Center(
-                      child: SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: Column(
-                          children: [
-                            LoadingIndicator(
-                              indicatorType: Indicator.pacman,
-                              colors: [Color.fromARGB(137, 24, 24, 24) , Color.fromARGB(255, 106, 106, 106), Color.fromARGB(255, 184, 184, 184)],
-                              strokeWidth: 4.0,
-                              pathBackgroundColor: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: Loading()
                     ),
                 )
                 : Expanded(
@@ -99,27 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   )),
-            // Expanded(
-            //   child: ListView(
-            //     children: [
-            //       const HomeJumButton(
-            //         url:
-            //             'https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2022/06/fashion-photography-tips-3.jpg?fit=1500%2C1000&ssl=1',
-            //         title: "OUTERWEAR",
-            //         buttonTitle: "View Collection",
-            //       ),
-
-            //       Catalog(products: products, title: "Most Popular Outerwear"),
-            //       const HomeJumButton(
-            //         url:
-            //             'https://images.unsplash.com/photo-1552223412-1a326064d46c?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            //         title: "CLOTHING",
-            //         buttonTitle: "View Collection",
-            //       ),
-            //       Catalog(products: clothes, title: "Most Popular Dress"),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),
