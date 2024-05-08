@@ -10,6 +10,7 @@ import 'package:shop/presentation/elements/texts/menubar_text.dart';
 import 'package:shop/presentation/elements/texts/price_text.dart';
 import 'package:shop/presentation/elements/texts/small_text.dart';
 import 'package:shop/presentation/elements/texts/text_title.dart';
+import 'package:shop/presentation/widget/appbar/product_menubar.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key, required this.product});
@@ -22,6 +23,13 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool favorite = false;
+
+  void toggleFavorite() {
+    setState(() {
+      favorite = !favorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
@@ -124,13 +132,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           const SizedBox(
                             width: 30,
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite_border_rounded,
-                                color: Colors.white,
-                                size: 30,
-                              ))
+                          GestureDetector(
+                            onTap: toggleFavorite,
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
+                              curve: Curves.easeInOut,
+                              child: IconButton(
+                                onPressed: null,
+                                icon: Icon(
+                                  favorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color:
+                                      const Color.fromARGB(255, 251, 120, 110),
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -239,75 +258,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               width: double.infinity,
               height: 0.5,
             ),
-            Container(
-                color: Colors.black87,
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.chat_bubble_rounded,
-                                color: Colors.white70,
-                                size: 25,
-                              )),
-                          MenubarText(title: "Chat")
-                        ],
-                      ),
-                      Container(
-                        color: Colors.white,
-                        width: 0.5,
-                        height: 50,
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.shopping_bag_rounded,
-                                color: Colors.white70,
-                                size: 25,
-                              )),
-                          MenubarText(title: "Add to shopbag")
-                        ],
-                      ),
-                      Container(
-                        color: Colors.white,
-                        width: 0.5,
-                        height: 50,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 19, 179, 118),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                10), 
-                          ),
-                          fixedSize: Size(200, 80)
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SmallText(
-                              title: "BUY NOW",
-                              color: Colors.white,
-                            ),
-                            MediumText(
-                              title: "${product.price.toString()} \$",
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+            ProductMenubar(productprice: product.price)
           ],
         ),
       ),

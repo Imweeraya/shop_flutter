@@ -8,6 +8,7 @@ import 'package:shop/entities/product.dart';
 import 'package:shop/mocks/products.dart';
 import 'package:shop/port/product.dart';
 import 'package:shop/presentation/widget/appbar/home_appbar.dart';
+import 'package:shop/presentation/widget/appbar/home_menubar.dart';
 import 'package:shop/presentation/widget/jumbutton/home_jumbutton.dart';
 import 'package:shop/presentation/widget/loading_indicator/loading.dart';
 import 'package:shop/presentation/widget/section/catalog.dart';
@@ -94,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   )),
+                  HomeMenubar()
           ],
         ),
       ),
