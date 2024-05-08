@@ -12,6 +12,7 @@ import 'package:shop/presentation/widget/appbar/home_menubar.dart';
 import 'package:shop/presentation/widget/jumbutton/home_jumbutton.dart';
 import 'package:shop/presentation/widget/loading_indicator/loading.dart';
 import 'package:shop/presentation/widget/section/catalog.dart';
+import 'package:shop/router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,6 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
     print(product.name);
   }
 
+  void tapMenubar(path) {
+    context.go(path);
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,8 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   )),
-                  HomeMenubar()
-          ],
+                  HomeMenubar(selectMenu: tapMenubar,)          ],
         ),
       ),
     );

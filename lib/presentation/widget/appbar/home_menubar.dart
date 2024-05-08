@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shop/presentation/elements/texts/medium_text.dart';
 import 'package:shop/presentation/elements/texts/menubar_text.dart';
 import 'package:shop/presentation/elements/texts/small_text.dart';
+import 'package:shop/presentation/screen/home_screen.dart';
+import 'package:shop/presentation/screen/user_screen.dart';
 
 class HomeMenubar extends StatelessWidget {
-  const HomeMenubar({super.key});
+  HomeMenubar({super.key, required this.selectMenu});
+  Function(String path)? selectMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,11 @@ class HomeMenubar extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (selectMenu != null) {
+                          selectMenu!('/');
+                        }
+                      },
                       icon: const Icon(
                         Icons.home_filled,
                         color: Colors.white70,
@@ -50,7 +57,7 @@ class HomeMenubar extends StatelessWidget {
                 width: 0.5,
                 height: 50,
               ),
-               Column(
+              Column(
                 children: [
                   IconButton(
                       onPressed: () {},
@@ -87,7 +94,11 @@ class HomeMenubar extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (selectMenu != null) {
+                          selectMenu!('/user');
+                        }
+                      },
                       icon: const Icon(
                         Icons.person,
                         color: Colors.white70,
