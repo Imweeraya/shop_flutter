@@ -8,6 +8,7 @@ import 'package:shop/presentation/elements/texts/medium_text.dart';
 import 'package:shop/presentation/elements/texts/small_text.dart';
 import 'package:shop/presentation/elements/texts/text_title.dart';
 import 'package:shop/presentation/widget/appbar/home_menubar.dart';
+import 'package:shop/presentation/widget/card/slide_image.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -176,13 +177,7 @@ class _UserScreenState extends State<UserScreen> {
                         SizedBox(
                           height: 150,
                           width: double.infinity,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image.network(
-                              "https://img.freepik.com/premium-psd/3d-objects-laptop-black-friday_129606-66.jpg?w=826",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          child: ImageSlider(),
                         ),
                         const SizedBox(
                           height: 20,

@@ -28,6 +28,31 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     setState(() {
       favorite = !favorite;
     });
+    favorite ? showSnackBar("Add to wishlist") : showSnackBar("Remove from wishlist");
+  }
+
+  void showSnackBar (String message){
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              message,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Color.fromARGB(255, 143, 143, 143)),
+              textAlign: TextAlign.center,
+            ),
+            backgroundColor: Colors.white,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.only(bottom: 70, left: 40, right: 40),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            // width: 250,
+            duration: Duration(seconds: 3),
+          ),
+        );
   }
 
   @override
