@@ -9,7 +9,7 @@ import 'package:shop/services/product_services.dart';
 final getit = GetIt.instance;
 
 void registerServices(){
-  getit.registerSingleton<HttpService>(MockHttpService('https://fakestoreapi.com'));
+  getit.registerSingleton<HttpService>(DioService('https://fakestoreapi.com'));
   getit.registerSingleton<IProductRepository>(ProductRepository());
   getit.registerSingleton<IProductService>(ProductService());
 }
