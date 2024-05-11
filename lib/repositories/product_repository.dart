@@ -220,11 +220,30 @@ class ProductRepository implements IProductRepository {
     }
   ];
 
+  // @override
+  // Future<List<Product>> getByCategory(String category) async {
+  //   final response = await httpService.get('/products/category/$category');
+  //   List<Product> products = [];
+  //   for (dynamic res in response) {
+  //     products.add(Product.fromJson(res));
+  //   }
+  //   return products;
+  // }
+
   @override
   Future<List<Product>> getByCategory(String category) async {
     final response = await httpService.get('/products/category/$category');
+
+    if (response == null) {
+      List<Product> products = [];
+      for (dynamic res in mockProducts) {
+        products.add(Product.fromJson(res));
+      }
+      return products;
+    }
+
     List<Product> products = [];
-    for (dynamic res in mockProducts) {
+    for (dynamic res in response) {
       products.add(Product.fromJson(res));
     }
     return products;
@@ -237,7 +256,9 @@ class ProductRepository implements IProductRepository {
     // for(dynamic res in response){
     //   categories.add(res);
     // }
-    // return (response as List<dynamic>).map((e) => e.toString()).toList();
-    return ["electronics", "jewelery", "men's clothing", "women's clothing"];
+    if (response == null) {
+      return ["electronics", "jewelery", "men's clothing", "women's clothing"];
+    }
+    return (response as List<dynamic>).map((e) => e.toString()).toList();
   }
 }
