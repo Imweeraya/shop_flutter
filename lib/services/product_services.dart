@@ -21,9 +21,8 @@ class ProductService extends IProductService {
         .toList();
   }
 
-  @override
+   @override
   Future<List<String>> getCatagories() async {
-    final catagories = await repository.getCatagories();
-    return catagories;
+    return await repository.getCatagories();
   }
 }

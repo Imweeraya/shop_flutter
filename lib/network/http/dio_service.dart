@@ -18,6 +18,7 @@ class DioService extends HttpService {
   @override
   Future get(String path) async {
     final response = await dio.get('$url$path');
+    print("RESPONSE : $response");
     if(response.statusCode == 200) {
       return response.data;
     } else {
